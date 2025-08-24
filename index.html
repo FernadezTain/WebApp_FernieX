@@ -1,53 +1,94 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram WebApp</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FernieX WebApp</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f5f5f5;
+        font-family: 'Arial', sans-serif;
+        background-color: #0f0f0f;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
     }
-    h1 {
-      color: #0088cc;
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background: rgba(0,0,0,0.6);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
     }
+
+    .menu h1 {
+        text-align: center;
+        color: #00ffff;
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+        margin: 0 0 20px 0;
+    }
+
     button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #0088cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+        background: none;
+        border: 2px solid #00ffff;
+        color: #00ffff;
+        padding: 15px 30px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-shadow: 0 0 2px #00ffff;
     }
+
     button:hover {
-      background-color: #006699;
+        background-color: #00ffff;
+        color: #000;
+        box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
     }
-  </style>
+
+    #profile-info {
+        margin-top: 20px;
+        background: rgba(0,0,0,0.7);
+        padding: 15px;
+        border-radius: 10px;
+        color: #00ffff;
+        font-size: 16px;
+        white-space: pre-line;
+    }
+</style>
 </head>
 <body>
-  <h1>Привет 👋!</h1>
-  <p>Это твое мини-приложение в Telegram.</p>
-  <button id="sendButton">Отправить данные в бот</button>
+<div class="menu">
+    <h1>FernieX Menu</h1>
+    <button id="profileBtn">Профиль</button>
+    <div id="profile-info"></div>
+</div>
 
-  <script>
+<script>
     const tg = window.Telegram.WebApp;
-
-    // Расширяем окно на весь экран
     tg.expand();
 
-    // Отправка данных в бота
-    document.getElementById("sendButton").addEventListener("click", () => {
-      tg.sendData("Привет от WebApp!");
-      alert("Данные отправлены в бота!");
+    const profileBtn = document.getElementById('profileBtn');
+    const profileInfo = document.getElementById('profile-info');
+
+    profileBtn.addEventListener('click', () => {
+        // Отправляем данные в бота (бот должен ловить их через callback)
+        tg.sendData("request_profile");
     });
 
-    // Меняем фон под тему Telegram
-    document.body.style.backgroundColor = tg.themeParams.bg_color;
-  </script>
+    // Обработка данных, которые бот может прислать обратно через WebApp
+    // Для этого в боте нужно настроить sendMessage с WebAppData
+    window.addEventListener('message', (event) => {
+        if(event.data.type === 'profile_data') {
+            profileInfo.textContent = event.data.text;
+        }
+    });
+</script>
 </body>
 </html>
