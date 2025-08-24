@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram WebApp</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #0088cc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #006699;
+    }
+  </style>
+</head>
+<body>
+  <h1>Привет 👋!</h1>
+  <p>Это твое мини-приложение в Telegram.</p>
+  <button id="sendButton">Отправить данные в бот</button>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    // Расширяем окно на весь экран
+    tg.expand();
+
+    // Отправка данных в бота
+    document.getElementById("sendButton").addEventListener("click", () => {
+      tg.sendData("Привет от WebApp!");
+      alert("Данные отправлены в бота!");
+    });
+
+    // Меняем фон под тему Telegram
+    document.body.style.backgroundColor = tg.themeParams.bg_color;
+  </script>
+</body>
+</html>
