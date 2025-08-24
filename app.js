@@ -4,8 +4,8 @@ tg.expand();
 const profileBtn = document.getElementById('profileBtn');
 const profileInfo = document.getElementById('profile-info');
 
-// Замените на свой домен и порт FastAPI
-const API_URL = "http://0.0.0.0:3925/profile/";
+// URL FastAPI на PythonAnywhere
+const API_URL = "https://EldenCraft.pythonanywhere.com/profile/";
 
 profileBtn.addEventListener('click', async () => {
     const user_id = tg.initDataUnsafe.user.id;
