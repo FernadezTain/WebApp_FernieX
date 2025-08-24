@@ -4,25 +4,27 @@ tg.expand();
 const profileBtn = document.getElementById('profileBtn');
 const profileInfo = document.getElementById('profile-info');
 
-// URL FastAPI на PythonAnywhere
-const API_URL = "https://EldenCraft.pythonanywhere.com/profile/";
+profileBtn.addEventListener('click', () => {
+    // Отправляем событие боту, чтобы он прислал профиль
+    tg.sendData(JSON.stringify({ action: "request_profile" }));
+});
 
-profileBtn.addEventListener('click', async () => {
-    const user_id = tg.initDataUnsafe.user.id;
-    try {
-        const response = await fetch(`${API_URL}${user_id}`);
-        const data = await response.json();
-        if(data.error){
+// Обработка ответа бота через WebAppQuery
+// (бот должен использовать answer_web_app_query для ответа)
+window.addEventListener("message", (event) => {
+    // Проверяем, что сообщение пришло от Telegram
+    if (!event.data || !event.data.type) return;
+
+    if (event.data.type === "profile_response") {
+        const data = event.data.payload;
+        if (data.error) {
             profileInfo.textContent = data.error;
         } else {
             let text = "";
-            for(const key in data){
+            for (const key in data) {
                 text += `${key}: ${data[key]}\n`;
             }
             profileInfo.textContent = text;
         }
-    } catch (err) {
-        profileInfo.textContent = "Ошибка при получении данных";
-        console.error(err);
     }
 });
