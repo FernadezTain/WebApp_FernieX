@@ -1,17 +1,19 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
-
-const profileBtn = document.getElementById('profileBtn');
-const profileInfo = document.getElementById('profile-info');
-
-profileBtn.addEventListener('click', () => {
-    // Отправляем запрос боту
-    tg.sendData("request_profile");
-});
-
-// Обработка данных от бота (через WebApp)
-window.addEventListener('message', (event) => {
-    if(event.data.type === 'profile_data') {
-        profileInfo.textContent = event.data.text;
+profileBtn.addEventListener('click', async () => {
+    const user_id = tg.initDataUnsafe.user.id;
+    try {
+        const response = await fetch(`https://твой-домен:8000/profile/${user_id}`);
+        const data = await response.json();
+        if(data.error){
+            profileInfo.textContent = data.error;
+        } else {
+            let text = "";
+            for(const key in data){
+                text += `${key}: ${data[key]}\n`;
+            }
+            profileInfo.textContent = text;
+        }
+    } catch (err) {
+        profileInfo.textContent = "Ошибка при получении данных";
+        console.error(err);
     }
 });
