@@ -1,55 +1,36 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #0f0f0f;
-    color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #00ffff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: rgba(0,0,0,0.6);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
-}
-
-.menu h1 {
     text-align: center;
-    color: #00ffff;
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
-    margin: 0 0 20px 0;
+    border: 2px solid #00ffff;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 button {
-    background: none;
-    border: 2px solid #00ffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #000000;
     color: #00ffff;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 10px;
+    border: 1px solid #00ffff;
     cursor: pointer;
-    transition: 0.3s;
-    text-shadow: 0 0 2px #00ffff;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #00ffff;
-    color: #000;
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    color: #000000;
 }
 
-#profile-info {
-    margin-top: 20px;
-    background: rgba(0,0,0,0.7);
-    padding: 15px;
-    border-radius: 10px;
-    color: #00ffff;
-    font-size: 16px;
-    white-space: pre-line;
+pre {
+    text-align: left;
+    margin-top: 15px;
 }
